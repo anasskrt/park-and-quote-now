@@ -10,3 +10,10 @@ export interface QuoteData {
   email: string;
   phone: string;
 }
+
+export interface SimplifiedQuoteData {
+  departureDate: Date;
+  departureTime: string;
+  returnDate: Date;
+  returnTime: string;
+}
