@@ -28,3 +28,10 @@ export interface AuthCredentials {
   email: string;
   password: string;
 }
+
+export interface CarInformation {
+  make: string;
+  model: string;
+  year: string;
+  licensePlate: string;
+}

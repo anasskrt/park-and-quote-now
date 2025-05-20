@@ -10,16 +10,10 @@ import { useToast } from "@/components/ui/use-toast";
 import { cn } from "@/lib/utils";
 import { CalendarIcon } from "lucide-react";
 import { Input } from "@/components/ui/input";
-
-interface SimplifiedQuoteData {
-  departureDate: Date;
-  departureTime: string;
-  returnDate: Date;
-  returnTime: string;
-}
+import { SimplifiedQuoteData, QuoteData } from "@/lib/types";
 
 interface QuoteFormProps {
-  onSubmit: (data: any) => void;
+  onSubmit: (data: QuoteData) => void;
 }
 
 const QuoteForm = ({ onSubmit }: QuoteFormProps) => {
@@ -73,22 +67,20 @@ const QuoteForm = ({ onSubmit }: QuoteFormProps) => {
     
     if (validateForm()) {
       if (departureDate && returnDate) {
-        const completeData: SimplifiedQuoteData = {
+        const completeData: QuoteData = {
           departureDate,
           departureTime: formData.departureTime,
           returnDate,
-          returnTime: formData.returnTime
-        };
-        
-        onSubmit({
-          ...completeData,
-          // Adding empty values for the other fields to maintain compatibility
+          returnTime: formData.returnTime,
+          // Adding empty values for compatibility
           location: "",
           carModel: "",
           name: "",
           email: "",
           phone: ""
-        });
+        };
+        
+        onSubmit(completeData);
         
         toast({
           title: "Devis demandé avec succès",

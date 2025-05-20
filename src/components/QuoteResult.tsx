@@ -3,9 +3,11 @@ import { format } from "date-fns";
 import { fr } from "date-fns/locale";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { QuoteData } from "@/lib/types";
-import { differenceInDays, differenceInHours } from "date-fns";
+import { QuoteData, SimplifiedQuoteData, CarInformation } from "@/lib/types";
+import { differenceInHours } from "date-fns";
 import { useState } from "react";
+import QuoteValidationForm from "./QuoteValidationForm";
+import { toast } from "sonner";
 
 interface QuoteResultProps {
   quote: QuoteData;
@@ -43,6 +45,8 @@ const calculatePrice = (quote: QuoteData): number => {
 
 const QuoteResult = ({ quote }: QuoteResultProps) => {
   const [saved, setSaved] = useState(false);
+  const [validationOpen, setValidationOpen] = useState(false);
+  const [isValidated, setIsValidated] = useState(false);
   
   const price = calculatePrice(quote);
   const formattedPrice = new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR' }).format(price);
@@ -54,7 +58,34 @@ const QuoteResult = ({ quote }: QuoteResultProps) => {
     // Simulation d'une sauvegarde
     setTimeout(() => {
       setSaved(true);
+      toast.success("Devis enregistré avec succès");
     }, 1000);
+  };
+
+  const handleQuoteValidation = () => {
+    setValidationOpen(true);
+  };
+
+  const handleValidationComplete = (userData: {
+    name: string;
+    email: string;
+    phone: string;
+    car: CarInformation;
+  }) => {
+    // Ici on pourrait envoyer les données à un API
+    console.log("Quote validated with user data:", userData);
+    
+    // Marquer le devis comme validé
+    setIsValidated(true);
+    toast.success("Votre demande a été enregistrée avec succès");
+  };
+
+  // Préparer les données simplifiées pour le formulaire de validation
+  const simplifiedQuote: SimplifiedQuoteData = {
+    departureDate: quote.departureDate,
+    departureTime: quote.departureTime,
+    returnDate: quote.returnDate,
+    returnTime: quote.returnTime
   };
   
   return (
@@ -77,7 +108,7 @@ const QuoteResult = ({ quote }: QuoteResultProps) => {
             <h3 className="font-semibold text-lg text-navy">Informations sur la demande</h3>
             <div className="grid grid-cols-2 gap-2 mt-2">
               <div className="text-gray-600">Lieu:</div>
-              <div className="font-medium">{quote.location}</div>
+              <div className="font-medium">{quote.location || "Non spécifié"}</div>
               
               <div className="text-gray-600">Départ:</div>
               <div className="font-medium">
@@ -90,23 +121,37 @@ const QuoteResult = ({ quote }: QuoteResultProps) => {
               </div>
               
               <div className="text-gray-600">Véhicule:</div>
-              <div className="font-medium">{quote.carModel}</div>
+              <div className="font-medium">{quote.carModel || "Non spécifié"}</div>
             </div>
           </div>
           
-          <div className="border-t border-gray-200 pt-4">
-            <h3 className="font-semibold text-lg text-navy">Coordonnées client</h3>
-            <div className="grid grid-cols-2 gap-2 mt-2">
-              <div className="text-gray-600">Nom:</div>
-              <div className="font-medium">{quote.name}</div>
-              
-              <div className="text-gray-600">Email:</div>
-              <div className="font-medium">{quote.email}</div>
-              
-              <div className="text-gray-600">Téléphone:</div>
-              <div className="font-medium">{quote.phone}</div>
+          {(quote.name || quote.email || quote.phone) && (
+            <div className="border-t border-gray-200 pt-4">
+              <h3 className="font-semibold text-lg text-navy">Coordonnées client</h3>
+              <div className="grid grid-cols-2 gap-2 mt-2">
+                {quote.name && (
+                  <>
+                    <div className="text-gray-600">Nom:</div>
+                    <div className="font-medium">{quote.name}</div>
+                  </>
+                )}
+                
+                {quote.email && (
+                  <>
+                    <div className="text-gray-600">Email:</div>
+                    <div className="font-medium">{quote.email}</div>
+                  </>
+                )}
+                
+                {quote.phone && (
+                  <>
+                    <div className="text-gray-600">Téléphone:</div>
+                    <div className="font-medium">{quote.phone}</div>
+                  </>
+                )}
+              </div>
             </div>
-          </div>
+          )}
           
           <div className="bg-gray-50 p-4 rounded-lg mt-4">
             <p className="text-sm text-gray-600">
@@ -117,16 +162,26 @@ const QuoteResult = ({ quote }: QuoteResultProps) => {
         </CardContent>
         
         <CardFooter className="flex flex-col sm:flex-row gap-4 justify-between">
-          <Button variant="outline" onClick={() => window.print()}>
-            Imprimer ce devis
-          </Button>
+          <div className="flex gap-2">
+            <Button variant="outline" onClick={() => window.print()}>
+              Imprimer
+            </Button>
+            
+            <Button 
+              variant="outline"
+              onClick={saveQuote}
+              disabled={saved}
+            >
+              {saved ? "Enregistré" : "Enregistrer"}
+            </Button>
+          </div>
           
           <Button 
             className="bg-gold hover:bg-gold-dark text-navy font-bold" 
-            onClick={saveQuote}
-            disabled={saved}
+            onClick={handleQuoteValidation}
+            disabled={isValidated}
           >
-            {saved ? "Devis enregistré" : "Enregistrer ce devis"}
+            {isValidated ? "Demande validée" : "Valider ma demande"}
           </Button>
         </CardFooter>
       </Card>
@@ -139,6 +194,13 @@ const QuoteResult = ({ quote }: QuoteResultProps) => {
           <a href="#contact">Contactez-nous</a>
         </Button>
       </div>
+
+      <QuoteValidationForm
+        open={validationOpen}
+        onOpenChange={setValidationOpen}
+        quoteData={simplifiedQuote}
+        onComplete={handleValidationComplete}
+      />
     </div>
   );
 };
