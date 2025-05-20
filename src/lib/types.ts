@@ -17,3 +17,14 @@ export interface SimplifiedQuoteData {
   returnDate: Date;
   returnTime: string;
 }
+
+export interface User {
+  id: string;
+  email: string;
+  name: string;
+}
+
+export interface AuthCredentials {
+  email: string;
+  password: string;
+}
