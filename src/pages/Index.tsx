@@ -1,5 +1,7 @@
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
+import { toast } from "sonner";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import QuoteForm from "@/components/QuoteForm";
@@ -11,6 +13,17 @@ import { QuoteData } from "@/lib/types";
 const Index = () => {
   const [quoteResult, setQuoteResult] = useState<QuoteData | null>(null);
   const [showQuoteResult, setShowQuoteResult] = useState(false);
+  const location = useLocation();
+
+  useEffect(() => {
+    // Check if we're returning from a successful validation
+    if (location.state?.validationComplete) {
+      toast.success("Votre demande a été enregistrée avec succès");
+      
+      // Clear the state to prevent showing the toast again on refresh
+      window.history.replaceState({}, document.title);
+    }
+  }, [location.state]);
 
   const handleQuoteSubmit = (data: QuoteData) => {
     // Ici nous pourrions calculer un vrai devis basé sur les données

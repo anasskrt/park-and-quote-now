@@ -1,12 +1,11 @@
-
 import { format } from "date-fns";
 import { fr } from "date-fns/locale";
+import { useNavigate } from "react-router-dom";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { QuoteData, SimplifiedQuoteData, CarInformation } from "@/lib/types";
+import { QuoteData, SimplifiedQuoteData } from "@/lib/types";
 import { differenceInHours } from "date-fns";
 import { useState } from "react";
-import QuoteValidationForm from "./QuoteValidationForm";
 import { toast } from "sonner";
 
 interface QuoteResultProps {
@@ -44,8 +43,8 @@ const calculatePrice = (quote: QuoteData): number => {
 };
 
 const QuoteResult = ({ quote }: QuoteResultProps) => {
+  const navigate = useNavigate();
   const [saved, setSaved] = useState(false);
-  const [validationOpen, setValidationOpen] = useState(false);
   const [isValidated, setIsValidated] = useState(false);
   
   const price = calculatePrice(quote);
@@ -63,29 +62,16 @@ const QuoteResult = ({ quote }: QuoteResultProps) => {
   };
 
   const handleQuoteValidation = () => {
-    setValidationOpen(true);
-  };
-
-  const handleValidationComplete = (userData: {
-    name: string;
-    email: string;
-    phone: string;
-    car: CarInformation;
-  }) => {
-    // Ici on pourrait envoyer les données à un API
-    console.log("Quote validated with user data:", userData);
+    // Prepare simplified quote data for the validation page
+    const simplifiedQuote: SimplifiedQuoteData = {
+      departureDate: quote.departureDate,
+      departureTime: quote.departureTime,
+      returnDate: quote.returnDate,
+      returnTime: quote.returnTime
+    };
     
-    // Marquer le devis comme validé
-    setIsValidated(true);
-    toast.success("Votre demande a été enregistrée avec succès");
-  };
-
-  // Préparer les données simplifiées pour le formulaire de validation
-  const simplifiedQuote: SimplifiedQuoteData = {
-    departureDate: quote.departureDate,
-    departureTime: quote.departureTime,
-    returnDate: quote.returnDate,
-    returnTime: quote.returnTime
+    // Navigate to validation page with quote data
+    navigate("/quote-validation", { state: { quoteData: simplifiedQuote } });
   };
   
   return (
@@ -194,13 +180,6 @@ const QuoteResult = ({ quote }: QuoteResultProps) => {
           <a href="#contact">Contactez-nous</a>
         </Button>
       </div>
-
-      <QuoteValidationForm
-        open={validationOpen}
-        onOpenChange={setValidationOpen}
-        quoteData={simplifiedQuote}
-        onComplete={handleValidationComplete}
-      />
     </div>
   );
 };
