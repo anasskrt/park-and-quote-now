@@ -11,6 +11,9 @@ import { cn } from "@/lib/utils";
 import { CalendarIcon } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { QuoteData } from "@/lib/types";
+import { differenceInHours } from "date-fns";
+import { useNavigate } from "react-router-dom";
+import { SimplifiedQuoteData } from "@/lib/types";
 
 interface HeroProps {
   onQuoteSubmit: (data: QuoteData) => void;
@@ -18,6 +21,7 @@ interface HeroProps {
 
 const Hero = ({ onQuoteSubmit }: HeroProps) => {
   const { toast } = useToast();
+  const navigate = useNavigate();
   const [formData, setFormData] = useState<{
     departureTime: string;
     returnTime: string;
@@ -28,6 +32,33 @@ const Hero = ({ onQuoteSubmit }: HeroProps) => {
   const [departureDate, setDepartureDate] = useState<Date | undefined>(undefined);
   const [returnDate, setReturnDate] = useState<Date | undefined>(undefined);
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const [showPrice, setShowPrice] = useState(false);
+  const [calculatedPrice, setCalculatedPrice] = useState(0);
+
+  const calculatePrice = () => {
+    if (!departureDate || !returnDate || !formData.departureTime || !formData.returnTime) {
+      return 0;
+    }
+
+    const departureDateTime = new Date(
+      `${format(departureDate, "yyyy-MM-dd")}T${formData.departureTime}`
+    );
+    
+    const returnDateTime = new Date(
+      `${format(returnDate, "yyyy-MM-dd")}T${formData.returnTime}`
+    );
+    
+    // Calculer la durée en jours (arrondi à l'entier supérieur)
+    const durationDays = Math.ceil(
+      differenceInHours(returnDateTime, departureDateTime) / 24
+    );
+    
+    // Prix de base par jour
+    const basePricePerDay = 25;
+    
+    // Prix total
+    return Math.max(1, durationDays) * basePricePerDay;
+  };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -67,6 +98,10 @@ const Hero = ({ onQuoteSubmit }: HeroProps) => {
     
     if (validateForm()) {
       if (departureDate && returnDate) {
+        const price = calculatePrice();
+        setCalculatedPrice(price);
+        setShowPrice(true);
+        
         const completeData: QuoteData = {
           departureDate,
           departureTime: formData.departureTime,
@@ -83,8 +118,8 @@ const Hero = ({ onQuoteSubmit }: HeroProps) => {
         onQuoteSubmit(completeData);
         
         toast({
-          title: "Devis demandé avec succès",
-          description: "Votre devis a été calculé ci-dessous.",
+          title: "Devis calculé avec succès",
+          description: "Votre estimation de prix est affichée ci-dessous.",
         });
       }
     } else {
@@ -95,6 +130,21 @@ const Hero = ({ onQuoteSubmit }: HeroProps) => {
       });
     }
   };
+
+  const handleQuoteValidation = () => {
+    if (departureDate && returnDate) {
+      const simplifiedQuote: SimplifiedQuoteData = {
+        departureDate,
+        departureTime: formData.departureTime,
+        returnDate,
+        returnTime: formData.returnTime
+      };
+      
+      navigate("/quote-validation", { state: { quoteData: simplifiedQuote } });
+    }
+  };
+
+  const formattedPrice = new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR' }).format(calculatedPrice);
 
   return (
     <div className="relative bg-gray-900 text-white">
@@ -116,6 +166,22 @@ const Hero = ({ onQuoteSubmit }: HeroProps) => {
             <p className="text-lg sm:text-xl mb-8">
               Confiez-nous votre véhicule en toute sérénité. Notre équipe de voituriers professionnels prend soin de votre voiture pendant que vous voyagez.
             </p>
+            
+            {showPrice && (
+              <div className="bg-white/10 backdrop-blur-sm p-6 rounded-lg border border-white/20 mb-8">
+                <h3 className="text-2xl font-bold mb-4 text-gold">Votre estimation</h3>
+                <div className="text-center">
+                  <div className="text-4xl font-bold text-gold mb-4">{formattedPrice}</div>
+                  <Button 
+                    onClick={handleQuoteValidation}
+                    className="bg-gold hover:bg-gold-dark text-navy font-bold text-lg px-8 py-4 w-full"
+                    size="lg"
+                  >
+                    Valider ma demande
+                  </Button>
+                </div>
+              </div>
+            )}
             
             <div className="flex flex-col sm:flex-row gap-4">
               <Button 
@@ -142,7 +208,7 @@ const Hero = ({ onQuoteSubmit }: HeroProps) => {
                         <Button
                           variant="outline"
                           className={cn(
-                            "w-full justify-start text-left font-normal",
+                            "w-full justify-start text-left font-normal bg-white hover:bg-gray-50",
                             !departureDate && "text-muted-foreground",
                             errors.departureDate && "border-red-500"
                           )}
@@ -155,7 +221,7 @@ const Hero = ({ onQuoteSubmit }: HeroProps) => {
                           )}
                         </Button>
                       </PopoverTrigger>
-                      <PopoverContent className="w-auto p-0 z-50">
+                      <PopoverContent className="w-auto p-0 z-50 bg-white">
                         <Calendar
                           mode="single"
                           selected={departureDate}
@@ -181,7 +247,10 @@ const Hero = ({ onQuoteSubmit }: HeroProps) => {
                     type="time"
                     value={formData.departureTime} 
                     onChange={handleInputChange} 
-                    className={cn(errors.departureTime && "border-red-500")}
+                    className={cn(
+                      "bg-white hover:bg-white focus:bg-white",
+                      errors.departureTime && "border-red-500"
+                    )}
                   />
                   {errors.departureTime && <p className="text-red-500 text-sm mt-1">{errors.departureTime}</p>}
                 </div>
@@ -196,7 +265,7 @@ const Hero = ({ onQuoteSubmit }: HeroProps) => {
                         <Button
                           variant="outline"
                           className={cn(
-                            "w-full justify-start text-left font-normal",
+                            "w-full justify-start text-left font-normal bg-white hover:bg-gray-50",
                             !returnDate && "text-muted-foreground",
                             errors.returnDate && "border-red-500"
                           )}
@@ -209,7 +278,7 @@ const Hero = ({ onQuoteSubmit }: HeroProps) => {
                           )}
                         </Button>
                       </PopoverTrigger>
-                      <PopoverContent className="w-auto p-0 z-50">
+                      <PopoverContent className="w-auto p-0 z-50 bg-white">
                         <Calendar
                           mode="single"
                           selected={returnDate}
@@ -235,7 +304,10 @@ const Hero = ({ onQuoteSubmit }: HeroProps) => {
                     type="time"
                     value={formData.returnTime} 
                     onChange={handleInputChange} 
-                    className={cn(errors.returnTime && "border-red-500")}
+                    className={cn(
+                      "bg-white hover:bg-white focus:bg-white",
+                      errors.returnTime && "border-red-500"
+                    )}
                   />
                   {errors.returnTime && <p className="text-red-500 text-sm mt-1">{errors.returnTime}</p>}
                 </div>
@@ -246,7 +318,7 @@ const Hero = ({ onQuoteSubmit }: HeroProps) => {
                   type="submit" 
                   className="w-full bg-gold hover:bg-gold-dark text-navy font-bold py-3"
                 >
-                  Demander un devis
+                  Calculer le prix
                 </Button>
                 <p className="text-sm text-gray-500 mt-2">
                   * Champs obligatoires
