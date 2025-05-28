@@ -12,16 +12,19 @@ import { CalendarIcon } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { QuoteData } from "@/lib/types";
 import { differenceInHours } from "date-fns";
-import { useNavigate } from "react-router-dom";
-import { SimplifiedQuoteData } from "@/lib/types";
+import ServiceSelection from "./ServiceSelection";
+import UserInfoForm from "./UserInfoForm";
+import PaymentForm from "./PaymentForm";
 
 interface HeroProps {
   onQuoteSubmit: (data: QuoteData) => void;
 }
 
+type Step = "datetime" | "services" | "userinfo" | "payment";
+
 const Hero = ({ onQuoteSubmit }: HeroProps) => {
   const { toast } = useToast();
-  const navigate = useNavigate();
+  const [currentStep, setCurrentStep] = useState<Step>("datetime");
   const [formData, setFormData] = useState<{
     departureTime: string;
     returnTime: string;
@@ -32,12 +35,13 @@ const Hero = ({ onQuoteSubmit }: HeroProps) => {
   const [departureDate, setDepartureDate] = useState<Date | undefined>(undefined);
   const [returnDate, setReturnDate] = useState<Date | undefined>(undefined);
   const [errors, setErrors] = useState<Record<string, string>>({});
-  const [showPrice, setShowPrice] = useState(false);
-  const [calculatedPrice, setCalculatedPrice] = useState(0);
+  const [selectedServices, setSelectedServices] = useState<any[]>([]);
+  const [totalServicePrice, setTotalServicePrice] = useState(0);
+  const [userInfo, setUserInfo] = useState<any>(null);
 
-  const calculatePrice = () => {
+  const calculateDays = () => {
     if (!departureDate || !returnDate || !formData.departureTime || !formData.returnTime) {
-      return 0;
+      return 1;
     }
 
     const departureDateTime = new Date(
@@ -48,16 +52,7 @@ const Hero = ({ onQuoteSubmit }: HeroProps) => {
       `${format(returnDate, "yyyy-MM-dd")}T${formData.returnTime}`
     );
     
-    // Calculer la durée en jours (arrondi à l'entier supérieur)
-    const durationDays = Math.ceil(
-      differenceInHours(returnDateTime, departureDateTime) / 24
-    );
-    
-    // Prix de base par jour
-    const basePricePerDay = 25;
-    
-    // Prix total
-    return Math.max(1, durationDays) * basePricePerDay;
+    return Math.ceil(differenceInHours(returnDateTime, departureDateTime) / 24) || 1;
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -66,7 +61,6 @@ const Hero = ({ onQuoteSubmit }: HeroProps) => {
       ...formData,
       [name]: value,
     });
-    // Clear error when field is changed
     if (errors[name]) {
       setErrors({
         ...errors,
@@ -75,16 +69,14 @@ const Hero = ({ onQuoteSubmit }: HeroProps) => {
     }
   };
 
-  const validateForm = () => {
+  const validateDateTime = () => {
     const newErrors: Record<string, string> = {};
     
-    // Required fields
     if (!departureDate) newErrors.departureDate = "La date de départ est requise";
     if (!formData.departureTime) newErrors.departureTime = "L'heure de départ est requise";
     if (!returnDate) newErrors.returnDate = "La date de retour est requise";
     if (!formData.returnTime) newErrors.returnTime = "L'heure de retour est requise";
     
-    // Date validation
     if (departureDate && returnDate && departureDate > returnDate) {
       newErrors.returnDate = "La date de retour doit être après la date de départ";
     }
@@ -93,35 +85,9 @@ const Hero = ({ onQuoteSubmit }: HeroProps) => {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    
-    if (validateForm()) {
-      if (departureDate && returnDate) {
-        const price = calculatePrice();
-        setCalculatedPrice(price);
-        setShowPrice(true);
-        
-        const completeData: QuoteData = {
-          departureDate,
-          departureTime: formData.departureTime,
-          returnDate,
-          returnTime: formData.returnTime,
-          // Adding empty values for compatibility
-          location: "",
-          carModel: "",
-          name: "",
-          email: "",
-          phone: ""
-        };
-        
-        onQuoteSubmit(completeData);
-        
-        toast({
-          title: "Devis calculé avec succès",
-          description: "Votre estimation de prix est affichée ci-dessous.",
-        });
-      }
+  const handleDateTimeNext = () => {
+    if (validateDateTime()) {
+      setCurrentStep("services");
     } else {
       toast({
         variant: "destructive",
@@ -131,74 +97,37 @@ const Hero = ({ onQuoteSubmit }: HeroProps) => {
     }
   };
 
-  const handleQuoteValidation = () => {
-    if (departureDate && returnDate) {
-      const simplifiedQuote: SimplifiedQuoteData = {
-        departureDate,
-        departureTime: formData.departureTime,
-        returnDate,
-        returnTime: formData.returnTime
-      };
-      
-      navigate("/quote-validation", { state: { quoteData: simplifiedQuote } });
-    }
+  const handleServiceSelection = (services: any[], totalPrice: number) => {
+    setSelectedServices(services);
+    setTotalServicePrice(totalPrice);
+    setCurrentStep("userinfo");
   };
 
-  const formattedPrice = new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR' }).format(calculatedPrice);
+  const handleUserInfoSubmit = (userInfo: any) => {
+    setUserInfo(userInfo);
+    setCurrentStep("payment");
+  };
 
-  return (
-    <div className="relative bg-gray-900 text-white">
-      <div 
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-40"
-        style={{ 
-          backgroundImage: "url('https://images.unsplash.com/photo-1577495508048-b635879837f1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2000&q=80')",
-        }}
-      />
-      
-      <div className="relative max-w-screen-xl mx-auto px-4 py-24 sm:px-6 lg:px-8 lg:py-32">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
-          {/* Left column - Hero content */}
-          <div className="max-w-2xl">
-            <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight mb-6">
-              Service de Gardiennage de Voitures Premium avec Voiturier
-            </h1>
-            
-            <p className="text-lg sm:text-xl mb-8">
-              Confiez-nous votre véhicule en toute sérénité. Notre équipe de voituriers professionnels prend soin de votre voiture pendant que vous voyagez.
-            </p>
-            
-            {showPrice && (
-              <div className="bg-white/10 backdrop-blur-sm p-6 rounded-lg border border-white/20 mb-8">
-                <h3 className="text-2xl font-bold mb-4 text-gold">Votre estimation</h3>
-                <div className="text-center">
-                  <div className="text-4xl font-bold text-gold mb-4">{formattedPrice}</div>
-                  <Button 
-                    onClick={handleQuoteValidation}
-                    className="bg-gold hover:bg-gold-dark text-navy font-bold text-lg px-8 py-4 w-full"
-                    size="lg"
-                  >
-                    Valider ma demande
-                  </Button>
-                </div>
-              </div>
-            )}
-            
-            <div className="flex flex-col sm:flex-row gap-4">
-              <Button 
-                size="lg" 
-                variant="outline" 
-                className="text-white border-white hover:bg-white/10"
-              >
-                <a href="#services">Nos services</a>
-              </Button>
-            </div>
-          </div>
+  const calculateTotalAmount = () => {
+    const days = calculateDays();
+    return totalServicePrice * days;
+  };
 
-          {/* Right column - Quote form */}
+  const stepTitles = {
+    datetime: "Quand avez-vous besoin de nos services ?",
+    services: "Choisissez vos services",
+    userinfo: "Vos informations",
+    payment: "Finaliser votre réservation"
+  };
+
+  const renderStepContent = () => {
+    switch (currentStep) {
+      case "datetime":
+        return (
           <div className="bg-white/95 backdrop-blur-sm p-6 rounded-lg shadow-xl">
-            <h2 className="text-2xl font-bold mb-6 text-navy">Demandez votre devis</h2>
+            <h2 className="text-2xl font-bold mb-6 text-navy">Quand avez-vous besoin de nos services ?</h2>
             
-            <form onSubmit={handleSubmit} className="space-y-4">
+            <form className="space-y-4">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                   <Label className="text-navy">Date de départ*</Label>
@@ -248,7 +177,7 @@ const Hero = ({ onQuoteSubmit }: HeroProps) => {
                     value={formData.departureTime} 
                     onChange={handleInputChange} 
                     className={cn(
-                      "bg-white hover:bg-white focus:bg-white",
+                      "bg-white",
                       errors.departureTime && "border-red-500"
                     )}
                   />
@@ -305,7 +234,7 @@ const Hero = ({ onQuoteSubmit }: HeroProps) => {
                     value={formData.returnTime} 
                     onChange={handleInputChange} 
                     className={cn(
-                      "bg-white hover:bg-white focus:bg-white",
+                      "bg-white",
                       errors.returnTime && "border-red-500"
                     )}
                   />
@@ -313,18 +242,114 @@ const Hero = ({ onQuoteSubmit }: HeroProps) => {
                 </div>
               </div>
               
-              <div className="mt-6">
+              <div className="mt-6 text-center">
                 <Button 
-                  type="submit" 
-                  className="w-full bg-gold hover:bg-gold-dark text-navy font-bold py-3"
+                  type="button"
+                  onClick={handleDateTimeNext}
+                  className="bg-gold hover:bg-gold-dark text-navy font-bold py-3 px-8"
                 >
-                  Calculer le prix
+                  Continuer
                 </Button>
                 <p className="text-sm text-gray-500 mt-2">
                   * Champs obligatoires
                 </p>
               </div>
             </form>
+          </div>
+        );
+
+      case "services":
+        return (
+          <ServiceSelection
+            onNext={handleServiceSelection}
+            onBack={() => setCurrentStep("datetime")}
+          />
+        );
+
+      case "userinfo":
+        return (
+          <UserInfoForm
+            onNext={handleUserInfoSubmit}
+            onBack={() => setCurrentStep("services")}
+          />
+        );
+
+      case "payment":
+        return (
+          <PaymentForm
+            totalAmount={calculateTotalAmount()}
+            services={selectedServices}
+            userInfo={userInfo}
+            bookingDetails={{
+              departureDate,
+              departureTime: formData.departureTime,
+              returnDate,
+              returnTime: formData.returnTime
+            }}
+            onBack={() => setCurrentStep("userinfo")}
+          />
+        );
+
+      default:
+        return null;
+    }
+  };
+
+  return (
+    <div className="relative bg-gray-900 text-white">
+      <div 
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-40"
+        style={{ 
+          backgroundImage: "url('https://images.unsplash.com/photo-1577495508048-b635879837f1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2000&q=80')",
+        }}
+      />
+      
+      <div className="relative max-w-screen-xl mx-auto px-4 py-24 sm:px-6 lg:px-8 lg:py-32">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+          {/* Left column - Hero content */}
+          <div className="max-w-2xl">
+            <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight mb-6">
+              Service de Gardiennage de Voitures Premium avec Voiturier
+            </h1>
+            
+            <p className="text-lg sm:text-xl mb-8">
+              Confiez-nous votre véhicule en toute sérénité. Notre équipe de voituriers professionnels prend soin de votre voiture pendant que vous voyagez.
+            </p>
+            
+            <div className="flex flex-col sm:flex-row gap-4">
+              <Button 
+                size="lg" 
+                variant="outline" 
+                className="text-white border-white hover:bg-white/10"
+              >
+                <a href="#services">Nos services</a>
+              </Button>
+            </div>
+
+            {/* Indicateur d'étape */}
+            <div className="mt-8 bg-white/10 backdrop-blur-sm p-4 rounded-lg">
+              <div className="flex items-center justify-between mb-2">
+                <span className="text-sm font-medium">Étape actuelle:</span>
+                <span className="text-gold font-bold">{stepTitles[currentStep]}</span>
+              </div>
+              <div className="flex space-x-2">
+                {["datetime", "services", "userinfo", "payment"].map((step, index) => (
+                  <div
+                    key={step}
+                    className={`h-2 flex-1 rounded ${
+                      ["datetime", "services", "userinfo", "payment"].indexOf(currentStep) >= index
+                        ? "bg-gold"
+                        : "bg-white/30"
+                    }`}
+                  />
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Right column - Multi-step form */}
+          <div>
+            {renderStepContent()}
           </div>
         </div>
       </div>
