@@ -10,6 +10,7 @@ import Signup from "./pages/Signup";
 import Profile from "./pages/Profile";
 import QuoteValidation from "./pages/QuoteValidation";
 import BookingProcess from "./pages/BookingProcess";
+import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -27,6 +28,7 @@ const App = () => (
           <Route path="/profile" element={<Profile />} />
           <Route path="/quote-validation" element={<QuoteValidation />} />
           <Route path="/booking-process" element={<BookingProcess />} />
+          <Route path="/contact" element={<Contact />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
