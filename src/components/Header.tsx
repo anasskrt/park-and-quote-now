@@ -2,11 +2,12 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Menu, X, UserRound } from "lucide-react";
+import { Menu, X, UserRound, Settings } from "lucide-react";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(true); // For demo purposes
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -33,6 +34,11 @@ const Header = () => {
             <Button className="bg-navy hover:bg-navy-light text-white">
               <Link to="/#devis">Demander un devis</Link>
             </Button>
+            {isAdmin && (
+              <Link to="/admin" className="text-navy hover:text-navy-light" title="Administration">
+                <Settings size={24} />
+              </Link>
+            )}
             {isLoggedIn ? (
               <Link to="/profile" className="text-navy hover:text-navy-light">
                 <UserRound size={24} />
@@ -60,6 +66,9 @@ const Header = () => {
             <Link to="/#services" className="block px-3 py-2 text-navy font-medium hover:bg-gray-50 rounded-md">Services</Link>
             <Link to="/#devis" className="block px-3 py-2 text-navy font-medium hover:bg-gray-50 rounded-md" onClick={() => setIsMenuOpen(false)}>Devis</Link>
             <Link to="/contact" className="block px-3 py-2 text-navy font-medium hover:bg-gray-50 rounded-md" onClick={() => setIsMenuOpen(false)}>Contact</Link>
+            {isAdmin && (
+              <Link to="/admin" className="block px-3 py-2 text-navy font-medium hover:bg-gray-50 rounded-md" onClick={() => setIsMenuOpen(false)}>Administration</Link>
+            )}
             {isLoggedIn ? (
               <Link to="/profile" className="block px-3 py-2 text-navy font-medium hover:bg-gray-50 rounded-md" onClick={() => setIsMenuOpen(false)}>Mon Profil</Link>
             ) : (
