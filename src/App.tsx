@@ -11,6 +11,7 @@ import Profile from "./pages/Profile";
 import QuoteValidation from "./pages/QuoteValidation";
 import BookingProcess from "./pages/BookingProcess";
 import Contact from "./pages/Contact";
+import FAQ from "./pages/FAQ";
 import Admin from "./pages/Admin";
 import AdminQuotes from "./pages/AdminQuotes";
 import AdminUsers from "./pages/AdminUsers";
@@ -32,6 +33,7 @@ const App = () => (
           <Route path="/quote-validation" element={<QuoteValidation />} />
           <Route path="/booking-process" element={<BookingProcess />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/faq" element={<FAQ />} />
           <Route path="/admin" element={<Admin />}>
             <Route path="quotes" element={<AdminQuotes />} />
             <Route path="users" element={<AdminUsers />} />

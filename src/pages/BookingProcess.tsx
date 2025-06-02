@@ -5,9 +5,10 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ServiceSelection from "@/components/ServiceSelection";
 import UserInfoForm from "@/components/UserInfoForm";
+import RulesValidation from "@/components/RulesValidation";
 import PaymentForm from "@/components/PaymentForm";
 
-type Step = "services" | "userinfo" | "payment";
+type Step = "services" | "userinfo" | "rules" | "payment";
 
 const BookingProcess = () => {
   const location = useLocation();
@@ -33,6 +34,10 @@ const BookingProcess = () => {
 
   const handleUserInfoSubmit = (userInfo: any) => {
     setUserInfo(userInfo);
+    setCurrentStep("rules");
+  };
+
+  const handleRulesValidation = () => {
     setCurrentStep("payment");
   };
 
@@ -55,6 +60,7 @@ const BookingProcess = () => {
   const stepTitles = {
     services: "Choisissez vos services",
     userinfo: "Vos informations",
+    rules: "Validation des règles",
     payment: "Finaliser votre réservation"
   };
 
@@ -76,6 +82,14 @@ const BookingProcess = () => {
           />
         );
 
+      case "rules":
+        return (
+          <RulesValidation
+            onNext={handleRulesValidation}
+            onBack={() => setCurrentStep("userinfo")}
+          />
+        );
+
       case "payment":
         return (
           <PaymentForm
@@ -83,7 +97,7 @@ const BookingProcess = () => {
             services={selectedServices}
             userInfo={userInfo}
             bookingDetails={bookingDetails}
-            onBack={() => setCurrentStep("userinfo")}
+            onBack={() => setCurrentStep("rules")}
           />
         );
 
@@ -105,11 +119,11 @@ const BookingProcess = () => {
               <span className="text-gold font-bold">{stepTitles[currentStep]}</span>
             </div>
             <div className="flex space-x-2">
-              {["services", "userinfo", "payment"].map((step, index) => (
+              {["services", "userinfo", "rules", "payment"].map((step, index) => (
                 <div
                   key={step}
                   className={`h-2 flex-1 rounded ${
-                    ["services", "userinfo", "payment"].indexOf(currentStep) >= index
+                    ["services", "userinfo", "rules", "payment"].indexOf(currentStep) >= index
                       ? "bg-gold"
                       : "bg-gray-300"
                   }`}

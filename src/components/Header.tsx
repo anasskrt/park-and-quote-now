@@ -27,6 +27,7 @@ const Header = () => {
             <Link to="/" className="font-medium text-navy hover:text-navy-light transition-colors">Accueil</Link>
             <Link to="/#services" className="font-medium text-navy hover:text-navy-light transition-colors">Services</Link>
             <Link to="/#devis" className="font-medium text-navy hover:text-navy-light transition-colors">Devis</Link>
+            <Link to="/faq" className="font-medium text-navy hover:text-navy-light transition-colors">FAQ</Link>
             <Link to="/contact" className="font-medium text-navy hover:text-navy-light transition-colors">Contact</Link>
           </nav>
           
@@ -65,6 +66,7 @@ const Header = () => {
             <Link to="/" className="block px-3 py-2 text-navy font-medium hover:bg-gray-50 rounded-md">Accueil</Link>
             <Link to="/#services" className="block px-3 py-2 text-navy font-medium hover:bg-gray-50 rounded-md">Services</Link>
             <Link to="/#devis" className="block px-3 py-2 text-navy font-medium hover:bg-gray-50 rounded-md" onClick={() => setIsMenuOpen(false)}>Devis</Link>
+            <Link to="/faq" className="block px-3 py-2 text-navy font-medium hover:bg-gray-50 rounded-md" onClick={() => setIsMenuOpen(false)}>FAQ</Link>
             <Link to="/contact" className="block px-3 py-2 text-navy font-medium hover:bg-gray-50 rounded-md" onClick={() => setIsMenuOpen(false)}>Contact</Link>
             {isAdmin && (
               <Link to="/admin" className="block px-3 py-2 text-navy font-medium hover:bg-gray-50 rounded-md" onClick={() => setIsMenuOpen(false)}>Administration</Link>
