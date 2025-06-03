@@ -1,6 +1,5 @@
 
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -20,7 +19,6 @@ interface UserInfoFormProps {
 }
 
 const UserInfoForm = ({ onNext, onBack }: UserInfoFormProps) => {
-  const navigate = useNavigate();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   
   const [formData, setFormData] = useState<UserInfo>({
@@ -85,51 +83,10 @@ const UserInfoForm = ({ onNext, onBack }: UserInfoFormProps) => {
     }
   };
 
-  const handleLogin = () => {
-    // Save current booking state to return after login
-    sessionStorage.setItem('pendingBookingProcess', JSON.stringify(true));
-    navigate("/login");
-  };
-
-  const handleSignup = () => {
-    // Save current booking state to return after signup
-    sessionStorage.setItem('pendingBookingProcess', JSON.stringify(true));
-    navigate("/signup");
-  };
-
   return (
     <div className="bg-white/95 backdrop-blur-sm p-6 rounded-lg shadow-xl">
       <h2 className="text-2xl font-bold mb-6 text-navy">Vos informations</h2>
       
-      {!isLoggedIn && (
-        <div className="bg-blue-50 p-4 rounded-lg mb-6 border border-blue-200">
-          <h3 className="font-semibold text-navy mb-2">Vous avez déjà un compte ?</h3>
-          <p className="text-sm text-gray-600 mb-3">
-            Connectez-vous pour pré-remplir automatiquement vos informations
-          </p>
-          <div className="flex flex-col sm:flex-row gap-3">
-            <Button 
-              type="button"
-              variant="outline" 
-              className="flex-1"
-              onClick={handleLogin}
-            >
-              Se connecter
-            </Button>
-            <Button 
-              type="button"
-              className="flex-1 bg-gold hover:bg-gold-dark text-navy"
-              onClick={handleSignup}
-            >
-              Créer un compte
-            </Button>
-          </div>
-          <div className="mt-3 text-center">
-            <span className="text-sm text-gray-500">ou continuez en tant qu'invité</span>
-          </div>
-        </div>
-      )}
-
       {isLoggedIn && (
         <div className="bg-green-50 p-4 rounded-lg mb-6 border border-green-200">
           <p className="text-sm text-green-700">
