@@ -25,6 +25,17 @@ const PaymentForm = ({ totalAmount, services, userInfo, bookingDetails, onBack }
     // Simulation du paiement
     setTimeout(() => {
       setIsProcessing(false);
+      
+      // Simulate payment failure for testing
+      // In real implementation, this would be based on actual payment response
+      const paymentSuccess = Math.random() > 0.2; // 80% success rate for demo
+      
+      if (!paymentSuccess) {
+        toast.error("Le paiement a échoué");
+        navigate("/payment-failed");
+        return;
+      }
+      
       toast.success("Paiement effectué avec succès !");
       
       // Check if user is already logged in

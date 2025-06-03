@@ -15,6 +15,7 @@ import FAQ from "./pages/FAQ";
 import Admin from "./pages/Admin";
 import AdminQuotes from "./pages/AdminQuotes";
 import AdminUsers from "./pages/AdminUsers";
+import PaymentFailed from "./pages/PaymentFailed";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -34,6 +35,7 @@ const App = () => (
           <Route path="/booking-process" element={<BookingProcess />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/faq" element={<FAQ />} />
+          <Route path="/payment-failed" element={<PaymentFailed />} />
           <Route path="/admin" element={<Admin />}>
             <Route path="quotes" element={<AdminQuotes />} />
             <Route path="users" element={<AdminUsers />} />
