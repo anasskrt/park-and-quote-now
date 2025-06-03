@@ -1,5 +1,6 @@
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -19,6 +20,9 @@ interface UserInfoFormProps {
 }
 
 const UserInfoForm = ({ onNext, onBack }: UserInfoFormProps) => {
+  const navigate = useNavigate();
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  
   const [formData, setFormData] = useState<UserInfo>({
     name: "",
     email: "",
@@ -27,6 +31,23 @@ const UserInfoForm = ({ onNext, onBack }: UserInfoFormProps) => {
     carModel: ""
   });
   const [errors, setErrors] = useState<Record<string, string>>({});
+
+  // Check if user is logged in and pre-fill form
+  useEffect(() => {
+    const loggedIn = localStorage.getItem("isLoggedIn") === "true";
+    setIsLoggedIn(loggedIn);
+    
+    if (loggedIn) {
+      const storedEmail = localStorage.getItem("userEmail") || "";
+      const storedName = localStorage.getItem("userName") || "";
+      
+      setFormData(prev => ({
+        ...prev,
+        name: storedName,
+        email: storedEmail
+      }));
+    }
+  }, []);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -64,9 +85,58 @@ const UserInfoForm = ({ onNext, onBack }: UserInfoFormProps) => {
     }
   };
 
+  const handleLogin = () => {
+    // Save current booking state to return after login
+    sessionStorage.setItem('pendingBookingProcess', JSON.stringify(true));
+    navigate("/login");
+  };
+
+  const handleSignup = () => {
+    // Save current booking state to return after signup
+    sessionStorage.setItem('pendingBookingProcess', JSON.stringify(true));
+    navigate("/signup");
+  };
+
   return (
     <div className="bg-white/95 backdrop-blur-sm p-6 rounded-lg shadow-xl">
       <h2 className="text-2xl font-bold mb-6 text-navy">Vos informations</h2>
+      
+      {!isLoggedIn && (
+        <div className="bg-blue-50 p-4 rounded-lg mb-6 border border-blue-200">
+          <h3 className="font-semibold text-navy mb-2">Vous avez déjà un compte ?</h3>
+          <p className="text-sm text-gray-600 mb-3">
+            Connectez-vous pour pré-remplir automatiquement vos informations
+          </p>
+          <div className="flex flex-col sm:flex-row gap-3">
+            <Button 
+              type="button"
+              variant="outline" 
+              className="flex-1"
+              onClick={handleLogin}
+            >
+              Se connecter
+            </Button>
+            <Button 
+              type="button"
+              className="flex-1 bg-gold hover:bg-gold-dark text-navy"
+              onClick={handleSignup}
+            >
+              Créer un compte
+            </Button>
+          </div>
+          <div className="mt-3 text-center">
+            <span className="text-sm text-gray-500">ou continuez en tant qu'invité</span>
+          </div>
+        </div>
+      )}
+
+      {isLoggedIn && (
+        <div className="bg-green-50 p-4 rounded-lg mb-6 border border-green-200">
+          <p className="text-sm text-green-700">
+            ✓ Vos informations ont été pré-remplies automatiquement
+          </p>
+        </div>
+      )}
       
       <form onSubmit={handleSubmit} className="space-y-4">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -79,9 +149,11 @@ const UserInfoForm = ({ onNext, onBack }: UserInfoFormProps) => {
               onChange={handleInputChange}
               className={cn(
                 "bg-white",
-                errors.name && "border-red-500"
+                errors.name && "border-red-500",
+                isLoggedIn && "bg-gray-50"
               )}
               placeholder="Votre nom complet"
+              disabled={isLoggedIn}
             />
             {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name}</p>}
           </div>
@@ -96,9 +168,11 @@ const UserInfoForm = ({ onNext, onBack }: UserInfoFormProps) => {
               onChange={handleInputChange}
               className={cn(
                 "bg-white",
-                errors.email && "border-red-500"
+                errors.email && "border-red-500",
+                isLoggedIn && "bg-gray-50"
               )}
               placeholder="votre@email.com"
+              disabled={isLoggedIn}
             />
             {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
           </div>
@@ -162,7 +236,7 @@ const UserInfoForm = ({ onNext, onBack }: UserInfoFormProps) => {
             type="submit"
             className="bg-gold hover:bg-gold-dark text-navy font-bold px-8"
           >
-            Continuer vers le paiement
+            Continuer vers les règles
           </Button>
         </div>
       </form>
