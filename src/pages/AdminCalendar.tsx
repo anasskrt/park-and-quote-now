@@ -4,11 +4,12 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
 import { Badge } from "@/components/ui/badge";
-import { format, isSameDay } from "date-fns";
+import { format, isSameDay, addDays } from "date-fns";
 import { fr } from "date-fns/locale";
 import { Car, Clock, CheckCircle } from "lucide-react";
 
-// Données fictives pour les réservations avec véhicules
+// Données fictives pour les réservations avec véhicules - dates ajustées pour être visibles
+const today = new Date();
 const mockBookings = [
   {
     id: "B001",
@@ -16,7 +17,7 @@ const mockBookings = [
     licensePlate: "AB-123-CD",
     carModel: "BMW X5",
     status: "entry", // entry = à récupérer, return = à rendre
-    date: new Date("2024-06-10"),
+    date: today,
     time: "14:30",
     location: "Aéroport Charles de Gaulle"
   },
@@ -26,7 +27,7 @@ const mockBookings = [
     licensePlate: "EF-456-GH",
     carModel: "Audi A4",
     status: "return",
-    date: new Date("2024-06-10"),
+    date: today,
     time: "16:00",
     location: "Gare Montparnasse"
   },
@@ -36,7 +37,7 @@ const mockBookings = [
     licensePlate: "IJ-789-KL",
     carModel: "Mercedes C-Class",
     status: "entry",
-    date: new Date("2024-06-12"),
+    date: addDays(today, 2),
     time: "09:00",
     location: "Aéroport Orly"
   },
@@ -46,7 +47,7 @@ const mockBookings = [
     licensePlate: "MN-012-OP",
     carModel: "Peugeot 308",
     status: "return",
-    date: new Date("2024-06-12"),
+    date: addDays(today, 2),
     time: "18:30",
     location: "Gare du Nord"
   },
@@ -56,14 +57,14 @@ const mockBookings = [
     licensePlate: "QR-345-ST",
     carModel: "Renault Clio",
     status: "entry",
-    date: new Date("2024-06-15"),
+    date: addDays(today, 5),
     time: "11:15",
     location: "Aéroport Charles de Gaulle"
   }
 ];
 
 const AdminCalendar = () => {
-  const [selectedDate, setSelectedDate] = useState<Date | undefined>(new Date());
+  const [selectedDate, setSelectedDate] = useState<Date | undefined>(today);
   const [bookings] = useState(mockBookings);
 
   const getBookingsForDate = (date: Date) => {
@@ -118,14 +119,15 @@ const AdminCalendar = () => {
               mode="single"
               selected={selectedDate}
               onSelect={setSelectedDate}
-              className="rounded-md border"
+              className="rounded-md border w-full"
               modifiers={{
                 hasBooking: getDaysWithBookings()
               }}
               modifiersStyles={{
                 hasBooking: {
                   backgroundColor: '#FEF3C7',
-                  fontWeight: 'bold'
+                  fontWeight: 'bold',
+                  color: '#92400e'
                 }
               }}
             />
