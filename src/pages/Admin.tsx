@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Link, Outlet, useLocation } from "react-router-dom";
 import Header from "@/components/Header";
@@ -26,11 +25,11 @@ const Admin = () => {
       count: "156"
     },
     {
-      title: "Statistiques",
-      description: "Voir les statistiques du service",
+      title: "Planning des véhicules",
+      description: "Calendrier des entrées et sorties",
       icon: BarChart3,
-      path: "/admin/stats",
-      count: "---"
+      path: "/admin/calendar",
+      count: "12"
     }
   ];
 

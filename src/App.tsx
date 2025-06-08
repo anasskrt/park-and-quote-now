@@ -15,6 +15,7 @@ import FAQ from "./pages/FAQ";
 import Admin from "./pages/Admin";
 import AdminQuotes from "./pages/AdminQuotes";
 import AdminUsers from "./pages/AdminUsers";
+import AdminCalendar from "./pages/AdminCalendar";
 import PaymentFailed from "./pages/PaymentFailed";
 import NotFound from "./pages/NotFound";
 
