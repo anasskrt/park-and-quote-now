@@ -7,9 +7,10 @@ import Footer from "@/components/Footer";
 import Features from "@/components/Features";
 import Hero from "@/components/Hero";
 import HowItWorks from "@/components/HowItWorks";
-import Pricing from "@/components/Pricing";
+import PricingHighlight from "@/components/PricingHighlight";
 import WhyChooseUs from "@/components/WhyChooseUs";
 import ServiceZones from "@/components/ServiceZones";
+import CustomerReviews from "@/components/CustomerReviews";
 
 const Index = () => {
   const location = useLocation();
@@ -31,10 +32,11 @@ const Index = () => {
       <main className="flex-grow">
         <Hero />
         <HowItWorks />
+        <PricingHighlight />
         <Features />
-        <Pricing />
         <WhyChooseUs />
         <ServiceZones />
+        <CustomerReviews />
       </main>
       
       <Footer />
