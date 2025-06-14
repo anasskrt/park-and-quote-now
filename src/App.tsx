@@ -1,4 +1,3 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -19,6 +18,8 @@ import AdminCalendar from "./pages/AdminCalendar";
 import PaymentFailed from "./pages/PaymentFailed";
 import StripeSuccess from "./pages/StripeSuccess";
 import NotFound from "./pages/NotFound";
+import MentionsLegales from "./pages/MentionsLegales";
+import CGU from "./pages/CGU";
 
 const queryClient = new QueryClient();
 
@@ -37,6 +38,8 @@ const App = () => (
           <Route path="/booking-process" element={<BookingProcess />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/faq" element={<FAQ />} />
+          <Route path="/mentions-legales" element={<MentionsLegales />} />
+          <Route path="/cgu" element={<CGU />} />
           <Route path="/payment-failed" element={<PaymentFailed />} />
           <Route path="/stripe-success" element={<StripeSuccess />} />
           <Route path="/admin" element={<Admin />}>
