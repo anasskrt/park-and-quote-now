@@ -38,6 +38,13 @@ const Admin = () => {
       icon: Settings,
       path: "/admin/services",
       count: "3"
+    },
+    {
+      title: "Gestion des prix",
+      description: "Gérer les tarifs journaliers",
+      icon: Settings,
+      path: "/admin/pricing",
+      count: "3"
     }
   ];
 

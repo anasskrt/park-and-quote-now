@@ -1,4 +1,3 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -22,6 +21,7 @@ import StripeSuccess from "./pages/StripeSuccess";
 import NotFound from "./pages/NotFound";
 import MentionsLegales from "./pages/MentionsLegales";
 import CGU from "./pages/CGU";
+import AdminPricing from "./pages/AdminPricing";
 
 const queryClient = new QueryClient();
 
@@ -49,6 +49,7 @@ const App = () => (
             <Route path="users" element={<AdminUsers />} />
             <Route path="calendar" element={<AdminCalendar />} />
             <Route path="services" element={<AdminServices />} />
+            <Route path="pricing" element={<AdminPricing />} />
           </Route>
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
