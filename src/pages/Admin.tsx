@@ -1,9 +1,10 @@
+
 import { useState } from "react";
 import { Link, Outlet, useLocation } from "react-router-dom";
 import Header from "@/components/Header";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Users, FileText, BarChart3 } from "lucide-react";
+import { Users, FileText, BarChart3, Settings } from "lucide-react";
 
 const Admin = () => {
   const location = useLocation();
@@ -30,6 +31,13 @@ const Admin = () => {
       icon: BarChart3,
       path: "/admin/calendar",
       count: "12"
+    },
+    {
+      title: "Gestion des services",
+      description: "Gérer les services supplémentaires",
+      icon: Settings,
+      path: "/admin/services",
+      count: "3"
     }
   ];
 

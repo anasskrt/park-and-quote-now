@@ -1,3 +1,4 @@
+
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -15,6 +16,7 @@ import Admin from "./pages/Admin";
 import AdminQuotes from "./pages/AdminQuotes";
 import AdminUsers from "./pages/AdminUsers";
 import AdminCalendar from "./pages/AdminCalendar";
+import AdminServices from "./pages/AdminServices";
 import PaymentFailed from "./pages/PaymentFailed";
 import StripeSuccess from "./pages/StripeSuccess";
 import NotFound from "./pages/NotFound";
@@ -46,6 +48,7 @@ const App = () => (
             <Route path="quotes" element={<AdminQuotes />} />
             <Route path="users" element={<AdminUsers />} />
             <Route path="calendar" element={<AdminCalendar />} />
+            <Route path="services" element={<AdminServices />} />
           </Route>
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
