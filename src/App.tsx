@@ -22,6 +22,7 @@ import NotFound from "./pages/NotFound";
 import MentionsLegales from "./pages/MentionsLegales";
 import CGU from "./pages/CGU";
 import AdminPricing from "./pages/AdminPricing";
+import Rules from "./pages/Rules";
 
 const queryClient = new QueryClient();
 
@@ -40,6 +41,7 @@ const App = () => (
           <Route path="/booking-process" element={<BookingProcess />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/faq" element={<FAQ />} />
+          <Route path="/rules" element={<Rules />} />
           <Route path="/mentions-legales" element={<MentionsLegales />} />
           <Route path="/cgu" element={<CGU />} />
           <Route path="/payment-failed" element={<PaymentFailed />} />

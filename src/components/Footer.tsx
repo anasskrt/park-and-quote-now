@@ -31,6 +31,7 @@ const Footer = () => {
               <li><a href="#services" className="hover:text-gold-light transition-colors">Nos Services</a></li>
               <li><a href="#devis" className="hover:text-gold-light transition-colors">Demander un Devis</a></li>
               <li><a href="#contact" className="hover:text-gold-light transition-colors">Contact</a></li>
+              <li><a href="/rules" className="hover:text-gold-light transition-colors">Règles du service</a></li>
               <li><a href="/mentions-legales" className="hover:text-gold-light transition-colors">Mentions légales</a></li>
               <li><a href="/cgu" className="hover:text-gold-light transition-colors">CGU</a></li>
             </ul>
