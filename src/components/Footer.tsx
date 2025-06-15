@@ -7,9 +7,9 @@ const Footer = () => {
       <div className="max-w-screen-xl mx-auto px-4 py-12 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div>
-            <h3 className="text-xl font-bold mb-4">Valet<span className="text-gold">Park</span></h3>
+            <h3 className="text-xl font-bold mb-4">MS<span className="text-gold">Parking</span></h3>
             <p className="mb-4">
-              Service premium de gardiennage et voiturier pour tous vos besoins de stationnement.
+              Service premium de gardiennage et voiturier pour tous vos besoins de stationnement à Bordeaux.
             </p>
             <div className="flex space-x-4">
               <a href="#" className="text-white hover:text-gold-light">
@@ -42,15 +42,15 @@ const Footer = () => {
             <ul className="space-y-2">
               <li className="flex items-start">
                 <MapPin size={20} className="mr-2 flex-shrink-0 mt-1" />
-                <span>123 Avenue des Champs-Élysées, 75008 Paris</span>
+                <span>45 Cours de l'Intendance, 33000 Bordeaux</span>
               </li>
               <li className="flex items-center">
                 <Phone size={20} className="mr-2 flex-shrink-0" />
-                <span>+33 1 23 45 67 89</span>
+                <span>+33 5 56 78 90 12</span>
               </li>
               <li className="flex items-center">
                 <Mail size={20} className="mr-2 flex-shrink-0" />
-                <span>contact@valetpark.fr</span>
+                <span>contact@msparking.fr</span>
               </li>
             </ul>
           </div>
@@ -58,7 +58,7 @@ const Footer = () => {
         
         <div className="mt-12 pt-8 border-t border-gray-700">
           <p className="text-center text-sm">
-            © {new Date().getFullYear()} ValetPark. Tous droits réservés.
+            © {new Date().getFullYear()} MSParking. Tous droits réservés.
           </p>
         </div>
       </div>

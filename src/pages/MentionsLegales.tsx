@@ -19,17 +19,17 @@ const MentionsLegales = () => {
             <div className="prose max-w-none">
               <h2 className="text-xl font-semibold text-navy mb-4">Éditeur du site</h2>
               <p className="mb-6">
-                <strong>ValetPark</strong><br />
+                <strong>MSParking</strong><br />
                 Société par actions simplifiée au capital de 10 000 €<br />
-                RCS Paris 123 456 789<br />
-                Siège social : 123 Avenue des Champs-Élysées, 75008 Paris<br />
-                Téléphone : +33 1 23 45 67 89<br />
-                Email : contact@valetpark.fr
+                RCS Bordeaux 123 456 789<br />
+                Siège social : 45 Cours de l'Intendance, 33000 Bordeaux<br />
+                Téléphone : +33 5 56 78 90 12<br />
+                Email : contact@msparking.fr
               </p>
 
               <h2 className="text-xl font-semibold text-navy mb-4">Directeur de la publication</h2>
               <p className="mb-6">
-                Monsieur Jean Dupont, Président de ValetPark SAS
+                Monsieur Michel Dupont, Président de MSParking SAS
               </p>
 
               <h2 className="text-xl font-semibold text-navy mb-4">Hébergement</h2>

@@ -14,7 +14,7 @@ const Contact = () => {
           <div className="text-center mb-12">
             <h1 className="text-4xl font-bold text-navy mb-4">Contactez-nous</h1>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Nous sommes là pour répondre à toutes vos questions concernant nos services de gardiennage et voiturier.
+              Nous sommes là pour répondre à toutes vos questions concernant nos services de gardiennage et voiturier à Bordeaux.
             </p>
           </div>
 
@@ -24,9 +24,9 @@ const Contact = () => {
               <div className="p-6">
                 <h2 className="text-2xl font-bold text-navy mb-4">Notre localisation</h2>
                 <div className="mb-4">
-                  <p className="text-gray-600 mb-2">123 Avenue des Champs-Élysées</p>
-                  <p className="text-gray-600 mb-2">75008 Paris, France</p>
-                  <p className="text-gray-600">+33 1 23 45 67 89</p>
+                  <p className="text-gray-600 mb-2">45 Cours de l'Intendance</p>
+                  <p className="text-gray-600 mb-2">33000 Bordeaux, France</p>
+                  <p className="text-gray-600">+33 5 56 78 90 12</p>
                 </div>
               </div>
               <div className="h-80">
@@ -50,7 +50,7 @@ const Contact = () => {
                 </svg>
               </div>
               <h3 className="text-xl font-bold text-navy mb-2">Téléphone</h3>
-              <p className="text-gray-600">+33 1 23 45 67 89</p>
+              <p className="text-gray-600">+33 5 56 78 90 12</p>
             </div>
 
             <div className="text-center">
@@ -60,7 +60,7 @@ const Contact = () => {
                 </svg>
               </div>
               <h3 className="text-xl font-bold text-navy mb-2">Email</h3>
-              <p className="text-gray-600">contact@valetpark.fr</p>
+              <p className="text-gray-600">contact@msparking.fr</p>
             </div>
 
             <div className="text-center">

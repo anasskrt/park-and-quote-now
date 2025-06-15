@@ -115,7 +115,7 @@ const Rules = () => {
               Règles du Service
             </h1>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Veuillez prendre connaissance de toutes les règles ci-dessous avant d'utiliser notre service de voiturier. 
+              Veuillez prendre connaissance de toutes les règles ci-dessous avant d'utiliser notre service de voiturier MSParking. 
               Ces règles garantissent la sécurité et la qualité de notre prestation.
             </p>
           </div>
@@ -164,16 +164,16 @@ const Rules = () => {
           <div className="mt-12 p-6 bg-navy text-white rounded-lg text-center">
             <h3 className="text-xl font-bold mb-4">Questions sur nos règles ?</h3>
             <p className="mb-4">
-              Notre équipe est disponible pour répondre à toutes vos questions concernant nos règles et conditions.
+              Notre équipe MSParking est disponible pour répondre à toutes vos questions concernant nos règles et conditions.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <div className="flex items-center justify-center gap-2">
                 <span>📧</span>
-                <span>contact@valetpark.fr</span>
+                <span>contact@msparking.fr</span>
               </div>
               <div className="flex items-center justify-center gap-2">
                 <span>📞</span>
-                <span>+33 1 23 45 67 89</span>
+                <span>+33 5 56 78 90 12</span>
               </div>
             </div>
           </div>

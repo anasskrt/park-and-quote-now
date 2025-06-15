@@ -5,34 +5,23 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 const ServiceZones = () => {
   const airports = [
     {
-      name: "Aéroport Charles de Gaulle (CDG)",
-      code: "CDG",
-      distance: "25 min",
-      description: "Navette directe vers tous les terminaux"
-    },
-    {
-      name: "Aéroport d'Orly (ORY)",
-      code: "ORY", 
-      distance: "35 min",
-      description: "Desserte Orly Sud et Orly Ouest"
+      name: "Aéroport de Bordeaux-Mérignac (BOD)",
+      code: "BOD",
+      distance: "20 min",
+      description: "Navette directe vers le terminal"
     }
   ];
 
   const stations = [
     {
-      name: "Gare du Nord",
+      name: "Gare Bordeaux Saint-Jean",
       distance: "15 min",
-      description: "Eurostar, Thalys, TER"
+      description: "TGV, TER, Intercités"
     },
     {
-      name: "Gare Montparnasse", 
-      distance: "20 min",
-      description: "TGV Atlantique, TER"
-    },
-    {
-      name: "Gare de Lyon",
-      distance: "18 min", 
-      description: "TGV Sud-Est, TER"
+      name: "Gare Bordeaux Saint-Jean (Tram)",
+      distance: "12 min", 
+      description: "Connexion tramway A, C"
     }
   ];
 
@@ -44,20 +33,20 @@ const ServiceZones = () => {
             Nos Zones de Service
           </h2>
           <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-            MSParking dessert les principaux aéroports et gares de Paris. 
-            Notre parking central situé au <strong>123 Avenue des Champs-Élysées, 75008 Paris</strong> 
+            MSParking dessert l'aéroport de Bordeaux-Mérignac et la gare Saint-Jean. 
+            Notre parking central situé au <strong>45 Cours de l'Intendance, 33000 Bordeaux</strong> 
             vous permet un accès rapide à tous vos points de départ.
           </p>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
-          {/* Aéroports */}
+          {/* Aéroport */}
           <Card className="hover:shadow-lg transition-shadow">
             <CardHeader className="text-center">
               <div className="mx-auto w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mb-4">
                 <Plane className="h-8 w-8 text-blue-600" />
               </div>
-              <CardTitle className="text-2xl text-navy">Aéroports Parisiens</CardTitle>
+              <CardTitle className="text-2xl text-navy">Aéroport de Bordeaux</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
@@ -85,7 +74,7 @@ const ServiceZones = () => {
               <div className="mx-auto w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mb-4">
                 <Train className="h-8 w-8 text-green-600" />
               </div>
-              <CardTitle className="text-2xl text-navy">Gares Principales</CardTitle>
+              <CardTitle className="text-2xl text-navy">Gare Principale</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
@@ -117,17 +106,17 @@ const ServiceZones = () => {
           </CardHeader>
           <CardContent className="text-center">
             <div className="mb-6">
-              <h4 className="text-xl font-semibold text-gold mb-2">123 Avenue des Champs-Élysées</h4>
-              <p className="text-lg mb-4">75008 Paris, France</p>
+              <h4 className="text-xl font-semibold text-gold mb-2">45 Cours de l'Intendance</h4>
+              <p className="text-lg mb-4">33000 Bordeaux, France</p>
               <p className="opacity-90">
-                Idéalement situé au cœur de Paris, notre parking sécurisé vous offre 
-                un accès privilégié à tous les grands axes de transport parisiens.
+                Idéalement situé au cœur de Bordeaux, notre parking sécurisé vous offre 
+                un accès privilégié à l'aéroport de Mérignac et à la gare Saint-Jean.
               </p>
             </div>
             
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
               <div>
-                <div className="text-2xl font-bold text-gold mb-2">500</div>
+                <div className="text-2xl font-bold text-gold mb-2">300</div>
                 <div className="text-sm">Places disponibles</div>
               </div>
               <div>
