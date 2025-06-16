@@ -1,3 +1,4 @@
+
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -23,6 +24,7 @@ import MentionsLegales from "./pages/MentionsLegales";
 import CGU from "./pages/CGU";
 import AdminPricing from "./pages/AdminPricing";
 import Rules from "./pages/Rules";
+import ResetPassword from "./pages/ResetPassword";
 
 const queryClient = new QueryClient();
 
@@ -44,6 +46,7 @@ const App = () => (
           <Route path="/rules" element={<Rules />} />
           <Route path="/mentions-legales" element={<MentionsLegales />} />
           <Route path="/cgu" element={<CGU />} />
+          <Route path="/reset-password" element={<ResetPassword />} />
           <Route path="/payment-failed" element={<PaymentFailed />} />
           <Route path="/stripe-success" element={<StripeSuccess />} />
           <Route path="/admin" element={<Admin />}>
