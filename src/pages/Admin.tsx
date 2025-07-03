@@ -45,6 +45,13 @@ const Admin = () => {
       icon: Settings,
       path: "/admin/pricing",
       count: "3"
+    },
+    {
+      title: "Gestion des transports",
+      description: "Gérer les options de transport",
+      icon: Settings,
+      path: "/admin/transports",
+      count: "4"
     }
   ];
 

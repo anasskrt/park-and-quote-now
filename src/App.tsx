@@ -1,4 +1,3 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -25,6 +24,7 @@ import CGU from "./pages/CGU";
 import AdminPricing from "./pages/AdminPricing";
 import Rules from "./pages/Rules";
 import ResetPassword from "./pages/ResetPassword";
+import AdminTransports from "./pages/AdminTransports";
 
 const queryClient = new QueryClient();
 
@@ -55,6 +55,7 @@ const App = () => (
             <Route path="calendar" element={<AdminCalendar />} />
             <Route path="services" element={<AdminServices />} />
             <Route path="pricing" element={<AdminPricing />} />
+            <Route path="transports" element={<AdminTransports />} />
           </Route>
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
