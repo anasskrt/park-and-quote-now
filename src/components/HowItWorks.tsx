@@ -7,22 +7,22 @@ const HowItWorks = () => {
     {
       icon: Car,
       title: "Déposez votre véhicule",
-      description: "Venez déposer votre voiture à notre parking sécurisé MSParking situé au 123 Avenue des Champs-Élysées, 75008 Paris. Notre équipe vous accueille 24h/24."
+      description: "Choisissez votre mode de transport : avec notre service voiturier, attendez au dépose-minute de notre parking sécurisé. Sinon, venez directement à notre adresse MSParking Bordeaux. Notre équipe de gardiennage professionnel vous accueille 24h/24."
     },
     {
       icon: Users,
-      title: "Navette gratuite",
-      description: "Notre service de navette gratuit vous conduit directement à l'aéroport Charles de Gaulle ou Orly en quelques minutes. Confort et ponctualité garantis."
+      title: "Transport vers l'aéroport",
+      description: "Notre service de navette gratuit ou voiturier vous conduit directement à l'aéroport Bordeaux-Mérignac. Gardiennage automobile premium avec transport sécurisé et ponctualité garantie."
     },
     {
       icon: Plane,
-      title: "Partez en voyage",
-      description: "Profitez de votre voyage en toute sérénité. Votre véhicule est entre de bonnes mains dans notre parking surveillé et sécurisé."
+      title: "Partez en voyage sereinement",
+      description: "Profitez de votre voyage en toute tranquillité. Votre véhicule bénéficie d'un gardiennage professionnel dans notre parking surveillé à Bordeaux, avec sécurité 24h/24."
     },
     {
       icon: ArrowRight,
-      title: "Récupération au retour",
-      description: "À votre retour, retrouvez-nous à la zone de récupération de l'aéroport. Notre navette vous ramène à votre véhicule, prêt pour le départ."
+      title: "Récupération à l'aéroport Bordeaux",
+      description: "À votre retour à l'aéroport Bordeaux-Mérignac : avec le voiturier, récupération directe dans le parking aéroport. Avec la navette, rendez-vous dans la zone indiquée sur notre carte interactive."
     }
   ];
 
@@ -31,11 +31,12 @@ const HowItWorks = () => {
       <div className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold text-navy mb-4">
-            Comment fonctionne notre service ?
+            Comment fonctionne notre service de gardiennage et voiturier ?
           </h2>
           <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-            Un service simple et efficace pour vos déplacements. De la prise en charge à la restitution, 
-            nous nous occupons de tout pour vous offrir une expérience sans stress.
+            Service de gardiennage automobile et voiturier professionnel à l'aéroport Bordeaux-Mérignac. 
+            Parking sécurisé avec navette gratuite - De la prise en charge à la restitution, 
+            nous nous occupons de tout pour vous offrir une expérience de gardiennage sans stress.
           </p>
         </div>
 
