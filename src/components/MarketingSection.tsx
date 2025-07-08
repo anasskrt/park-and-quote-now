@@ -1,57 +1,44 @@
-import { Car, Shield, Clock, Euro } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const MarketingSection = () => {
   return (
-    <section className="py-16 bg-white relative overflow-hidden">
+    <section className="py-20 bg-white relative overflow-hidden">
       {/* Background decoration */}
       <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-secondary/5"></div>
       
       <div className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         <div className="text-center mb-12">
-          <h2 className="text-4xl md:text-5xl font-bold text-navy mb-6 leading-tight">
+          <h2 className="text-4xl md:text-6xl font-bold text-navy mb-8 leading-tight">
             MSParking, votre parking 
             <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent"> à petit prix</span>
           </h2>
           
-          <p className="text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed mb-8">
+          <p className="text-2xl text-gray-600 max-w-5xl mx-auto leading-relaxed mb-12">
             Découvrez une nouvelle façon de voyager sereinement depuis Bordeaux-Mérignac. 
             <br className="hidden md:block" />
             <strong>Gardiennage professionnel, tarifs imbattables, service premium</strong> - 
             Tout ce dont vous avez besoin pour partir l'esprit tranquille.
           </p>
 
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
-            <div className="text-center group">
-              <div className="w-16 h-16 bg-gradient-to-br from-primary to-secondary rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
-                <Euro className="h-8 w-8 text-white" />
-              </div>
-              <h3 className="text-2xl font-bold text-navy mb-2">À partir de 35€</h3>
-              <p className="text-gray-600">Prix imbattables pour un service premium</p>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
+            <div className="text-center">
+              <h3 className="text-4xl font-bold text-primary mb-3">À partir de 35€</h3>
+              <p className="text-lg text-gray-600">Prix imbattables pour un service premium</p>
             </div>
             
-            <div className="text-center group">
-              <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
-                <Car className="h-8 w-8 text-white" />
-              </div>
-              <h3 className="text-2xl font-bold text-navy mb-2">Navette Gratuite</h3>
-              <p className="text-gray-600">Transport inclus vers l'aéroport</p>
+            <div className="text-center">
+              <h3 className="text-4xl font-bold text-secondary mb-3">Navette Gratuite</h3>
+              <p className="text-lg text-gray-600">Transport inclus vers l'aéroport</p>
             </div>
             
-            <div className="text-center group">
-              <div className="w-16 h-16 bg-gradient-to-br from-green-500 to-green-600 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
-                <Shield className="h-8 w-8 text-white" />
-              </div>
-              <h3 className="text-2xl font-bold text-navy mb-2">100% Sécurisé</h3>
-              <p className="text-gray-600">Surveillance 24h/24, caméras, éclairage</p>
+            <div className="text-center">
+              <h3 className="text-4xl font-bold text-navy mb-3">100% Sécurisé</h3>
+              <p className="text-lg text-gray-600">Surveillance 24h/24, caméras, éclairage</p>
             </div>
             
-            <div className="text-center group">
-              <div className="w-16 h-16 bg-gradient-to-br from-gold to-yellow-500 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
-                <Clock className="h-8 w-8 text-white" />
-              </div>
-              <h3 className="text-2xl font-bold text-navy mb-2">Service 24/7</h3>
-              <p className="text-gray-600">Disponible à toute heure, tous les jours</p>
+            <div className="text-center">
+              <h3 className="text-4xl font-bold text-gold mb-3">Service 24/7</h3>
+              <p className="text-lg text-gray-600">Disponible à toute heure, tous les jours</p>
             </div>
           </div>
 
