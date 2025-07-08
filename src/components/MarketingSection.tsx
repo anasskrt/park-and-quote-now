@@ -7,65 +7,57 @@ const MarketingSection = () => {
       <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-secondary/5"></div>
       
       <div className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-        <div className="text-center mb-12">
+        <div className="text-center mb-16">
           <h2 className="text-4xl md:text-6xl font-bold text-navy mb-8 leading-tight">
             MSParking, votre parking 
             <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent"> à petit prix</span>
           </h2>
           
-          <p className="text-2xl text-gray-600 max-w-5xl mx-auto leading-relaxed mb-12">
-            Découvrez une nouvelle façon de voyager sereinement depuis Bordeaux-Mérignac. 
-            <br className="hidden md:block" />
-            <strong>Gardiennage professionnel, tarifs imbattables, service premium</strong> - 
-            Tout ce dont vous avez besoin pour partir l'esprit tranquille.
-          </p>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
-            <div className="text-center">
-              <h3 className="text-4xl font-bold text-primary mb-3">À partir de 35€</h3>
-              <p className="text-lg text-gray-600">Prix imbattables pour un service premium</p>
-            </div>
+          <div className="max-w-4xl mx-auto space-y-8">
+            <p className="text-2xl text-gray-700 leading-relaxed">
+              Découvrez une nouvelle façon de voyager sereinement depuis l'aéroport de Bordeaux-Mérignac. 
+              Notre service de gardiennage automobile premium vous offre la tranquillité d'esprit que vous méritez, 
+              avec des tarifs qui défient toute concurrence.
+            </p>
             
-            <div className="text-center">
-              <h3 className="text-4xl font-bold text-secondary mb-3">Navette Gratuite</h3>
-              <p className="text-lg text-gray-600">Transport inclus vers l'aéroport</p>
-            </div>
+            <p className="text-xl text-gray-600 leading-relaxed">
+              <strong>MSParking, c'est l'assurance d'un voyage sans stress.</strong> Pendant que vous explorez le monde, 
+              votre véhicule reste en sécurité dans notre parking surveillé 24h/24. Notre équipe de professionnels 
+              veille sur votre bien le plus précieux avec le même soin que s'il s'agissait du leur.
+            </p>
             
-            <div className="text-center">
-              <h3 className="text-4xl font-bold text-navy mb-3">100% Sécurisé</h3>
-              <p className="text-lg text-gray-600">Surveillance 24h/24, caméras, éclairage</p>
-            </div>
-            
-            <div className="text-center">
-              <h3 className="text-4xl font-bold text-gold mb-3">Service 24/7</h3>
-              <p className="text-lg text-gray-600">Disponible à toute heure, tous les jours</p>
-            </div>
+            <p className="text-xl text-gray-600 leading-relaxed">
+              Que vous choisissiez notre navette gratuite ou notre service voiturier premium, nous nous adaptons 
+              à vos besoins et à votre budget. Plus besoin de chercher une place de parking à l'aéroport, 
+              plus besoin de stresser pour votre véhicule. Avec MSParking, partez l'esprit léger et revenez 
+              retrouver votre voiture exactement comme vous l'aviez laissée.
+            </p>
           </div>
 
-          <div className="bg-gradient-to-r from-primary/10 to-secondary/10 rounded-2xl p-8 border border-primary/20">
+          <div className="bg-gradient-to-r from-primary/10 to-secondary/10 rounded-2xl p-12 mt-16 border border-primary/20">
             <div className="max-w-3xl mx-auto">
-              <h3 className="text-2xl font-bold text-navy mb-4">
-                Pourquoi choisir MSParking ?
+              <h3 className="text-3xl font-bold text-navy mb-6">
+                Un service pensé pour vous
               </h3>
-              <p className="text-lg text-gray-700 mb-6 leading-relaxed">
-                Plus qu'un simple parking, MSParking c'est <strong>l'assurance d'un voyage sans stress</strong>. 
-                Nos tarifs défient toute concurrence tout en maintenant un niveau de service exceptionnel. 
-                Votre véhicule est entre de bonnes mains pendant que vous profitez de votre voyage.
+              <p className="text-xl text-gray-700 mb-8 leading-relaxed">
+                Notre mission est simple : vous offrir une expérience de parking premium sans vous ruiner. 
+                Surveillance constante, navette gratuite, équipe disponible 24h/24, et des prix qui restent 
+                accessibles à tous les voyageurs. C'est ça, l'esprit MSParking.
               </p>
               
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Button 
                   size="lg" 
-                  className="bg-gradient-to-r from-primary to-secondary hover:from-primary-dark hover:to-secondary-dark text-white font-bold"
+                  className="bg-gradient-to-r from-primary to-secondary hover:from-primary-dark hover:to-secondary-dark text-white font-bold px-8 py-3"
                 >
                   Réserver maintenant
                 </Button>
                 <Button 
                   size="lg" 
                   variant="outline" 
-                  className="border-primary text-primary hover:bg-primary/5"
+                  className="border-primary text-primary hover:bg-primary/5 px-8 py-3"
                 >
-                  Voir nos tarifs
+                  Découvrir nos services
                 </Button>
               </div>
             </div>
